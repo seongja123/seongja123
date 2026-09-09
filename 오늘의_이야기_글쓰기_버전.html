@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>오늘의 이야기</title>
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Arial,"Noto Sans KR",sans-serif;background:#faf9f7;color:#333}
+header{background:#fff;border-bottom:1px solid #eee;position:sticky;top:0;z-index:10}
+.nav{max-width:1100px;margin:auto;padding:16px 22px;display:flex;align-items:center;justify-content:space-between;gap:15px}
+.logo{font-size:25px;font-weight:800;color:#333;white-space:nowrap}.logo span{color:#c78b65}
+nav{display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+nav a{color:#555;text-decoration:none;font-size:14px}
+.write-btn,.save-btn{border:0;border-radius:12px;padding:11px 15px;background:#c78b65;color:#fff;font-weight:700;cursor:pointer}
+.hero{max-width:1100px;margin:28px auto;padding:70px 30px;border-radius:24px;background:linear-gradient(135deg,#f3e5d8,#eee8df);text-align:center}
+.hero h1{font-size:42px;margin:0 0 15px}.hero p{font-size:17px;color:#666;margin:0}
+.container{max-width:1100px;margin:45px auto;padding:0 22px}
+.title{display:flex;justify-content:space-between;align-items:end;margin-bottom:20px}.title h2{margin:0;font-size:28px}.title small{color:#888}
+.posts{display:grid;grid-template-columns:repeat(3,1fr);gap:22px}
+.card{background:#fff;border-radius:18px;overflow:hidden;box-shadow:0 4px 18px #0000000b}
+.photo{height:190px;background:linear-gradient(135deg,#d8c0a8,#eee1d4);display:flex;align-items:center;justify-content:center;font-size:55px;overflow:hidden}
+.photo img{width:100%;height:100%;object-fit:cover}
+.card-body{padding:20px}.category{font-size:12px;color:#b27652;font-weight:bold}.card h3{font-size:19px;margin:9px 0}.card p{font-size:14px;color:#777;line-height:1.6;white-space:pre-wrap}
+.date{font-size:12px;color:#aaa;margin-top:10px}
+.about{margin-top:50px;background:#fff;padding:30px;border-radius:20px;text-align:center}.about h2{margin-top:0}
+footer{text-align:center;padding:40px;color:#999;font-size:13px}
+.modal{display:none;position:fixed;inset:0;background:#0008;z-index:20;padding:18px;overflow:auto}
+.modal-box{max-width:650px;margin:30px auto;background:#fff;border-radius:20px;padding:24px}
+.modal-box h2{margin-top:0}
+label{display:block;font-weight:700;margin:14px 0 7px}
+input,select,textarea{width:100%;padding:12px;border:1px solid #ddd;border-radius:10px;font:inherit}
+textarea{min-height:180px;resize:vertical}
+.preview{margin-top:10px;max-height:180px;display:none;border-radius:12px;object-fit:cover;width:100%}
+.actions{display:flex;gap:10px;margin-top:18px;flex-wrap:wrap}
+.cancel-btn,.download-btn{border:0;border-radius:12px;padding:11px 15px;cursor:pointer}
+.cancel-btn{background:#eee}.download-btn{background:#333;color:#fff}
+.notice{font-size:13px;line-height:1.6;color:#666;background:#f7f3ef;padding:12px;border-radius:10px;margin-top:12px}
+.empty{background:#fff;border-radius:18px;padding:30px;text-align:center;color:#888;grid-column:1/-1}
+@media(max-width:700px){
+nav a{font-size:12px}.nav{align-items:flex-start}.logo{font-size:22px}
+.hero{margin:15px;padding:50px 20px}.hero h1{font-size:31px}
+.posts{grid-template-columns:1fr}.container{margin-top:30px}.title{align-items:center}
+}
+</style>
+</head>
+<body>
+<header>
+  <div class="nav">
+    <div class="logo">오늘의 <span>이야기</span></div>
+    <nav>
+      <a href="#">홈</a><a href="#travel">여행</a><a href="#food">맛집·먹거리</a><a href="#info">생활정보</a><a href="#ai">AI·IT</a>
+      <button class="write-btn" onclick="openEditor()">✏️ 글쓰기</button>
+    </nav>
+  </div>
+</header>
+
+<section class="hero">
+  <h1>오늘의 이야기</h1>
+  <p>여행하고, 먹고, 배우며 기록하는 나의 작은 공간</p>
+</section>
+
+<main class="container">
+  <div class="title"><h2>최근 이야기</h2><small>새로운 기록을 만나보세요</small></div>
+  <div class="posts" id="posts"></div>
+
+  <section class="about">
+    <h2>🌸 이곳은 어떤 블로그인가요?</h2>
+    <p>여행, 맛있는 음식, 생활 속 유용한 정보, AI 이야기를 한곳에 담았습니다.<br>위의 <b>✏️ 글쓰기</b> 버튼으로 새 글을 만들 수 있어요.</p>
+    <div class="notice">
+      글을 작성한 뒤 <b>「HTML 파일로 저장」</b>을 누르고, 저장된 <b>index.html</b>을 GitHub의 기존 index.html에 올리면 인터넷 블로그에도 반영됩니다.
+    </div>
+  </section>
+</main>
+<footer>© 2026 오늘의 이야기 · 나의 기록 공간</footer>
+
+<div class="modal" id="editor">
+  <div class="modal-box">
+    <h2>✏️ 새 글 쓰기</h2>
+    <label>카테고리</label>
+    <select id="category">
+      <option>여행</option><option>맛집·먹거리</option><option>생활정보</option><option>AI·IT</option><option>일상</option><option>나의 이야기</option>
+    </select>
+    <label>제목</label>
+    <input id="titleInput" placeholder="예: 청도에서 보낸 즐거운 하루">
+    <label>내용</label>
+    <textarea id="contentInput" placeholder="오늘의 이야기를 적어보세요."></textarea>
+    <label>사진 (선택)</label>
+    <input id="imageInput" type="file" accept="image/*">
+    <img id="preview" class="preview">
+    <div class="actions">
+      <button class="save-btn" onclick="addPost()">게시하기</button>
+      <button class="download-btn" onclick="downloadHTML()">HTML 파일로 저장</button>
+      <button class="cancel-btn" onclick="closeEditor()">닫기</button>
+    </div>
+    <div class="notice">
+      <b>중요:</b> GitHub Pages는 정적인 웹사이트라서 여기서 작성한 글이 자동으로 인터넷에 올라가지는 않습니다.
+      「HTML 파일로 저장」 후 GitHub의 <b>index.html</b>을 교체하면 누구나 볼 수 있는 글이 됩니다.
+    </div>
+  </div>
+</div>
+
+<script>
+const defaultPosts=[
+ {category:"여행",title:"청도에서 보낸 즐거운 하루",content:"카라반 펜션에서 쉬고 루지를 타고 소싸움까지 즐긴 청도 여행 이야기.",emoji:"🌿"},
+ {category:"맛집·먹거리",title:"오늘은 무엇을 먹을까?",content:"맛있는 음식과 재미있는 먹거리 이야기를 차곡차곡 기록해요.",emoji:"🍜"},
+ {category:"생활정보",title:"알아두면 유용한 생활정보",content:"일상에서 바로 활용할 수 있는 쉽고 유용한 정보를 소개합니다.",emoji:"💡"},
+ {category:"AI·IT",title:"ChatGPT 쉽게 활용하기",content:"어렵게 느껴지는 AI와 IT 이야기를 누구나 이해하기 쉽게 정리해요.",emoji:"🤖"},
+ {category:"일상",title:"사진으로 남기는 하루",content:"소소하지만 기억하고 싶은 순간들을 사진과 글로 남겨봅니다.",emoji:"📷"},
+ {category:"나의 이야기",title:"천천히, 나답게",content:"매일의 생각과 경험을 편안하게 기록하는 공간입니다.",emoji:"☕"}
+];
+let posts=JSON.parse(localStorage.getItem("todayStoryPosts")||"null")||defaultPosts;
+
+function esc(s){return String(s??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#39;"}[m]));}
+function render(){
+ const box=document.getElementById("posts");
+ if(!posts.length){box.innerHTML='<div class="empty">아직 글이 없어요. ✏️ 글쓰기로 첫 글을 만들어보세요.</div>';return;}
+ box.innerHTML=posts.map((p,i)=>`
+  <article class="card" id="${i===0?'travel':''}">
+    <div class="photo">${p.image?`<img src="${p.image}" alt="">`:(p.emoji||"📝")}</div>
+    <div class="card-body"><span class="category">${esc(p.category)}</span><h3>${esc(p.title)}</h3><p>${esc(p.content)}</p><div class="date">${esc(p.date||"오늘")}</div></div>
+  </article>`).join("");
+}
+function openEditor(){document.getElementById("editor").style.display="block";}
+function closeEditor(){document.getElementById("editor").style.display="none";}
+document.getElementById("imageInput").addEventListener("change",function(){
+ const file=this.files[0], img=document.getElementById("preview");
+ if(!file){img.style.display="none";return;}
+ const r=new FileReader();r.onload=e=>{img.src=e.target.result;img.style.display="block";};r.readAsDataURL(file);
+});
+function addPost(){
+ const category=document.getElementById("category").value;
+ const title=document.getElementById("titleInput").value.trim();
+ const content=document.getElementById("contentInput").value.trim();
+ const image=document.getElementById("preview").src||"";
+ if(!title||!content){alert("제목과 내용을 입력해주세요.");return;}
+ posts.unshift({category,title,content,image:image.startsWith("data:")?image:"",emoji:"📝",date:new Date().toLocaleDateString("ko-KR")});
+ localStorage.setItem("todayStoryPosts",JSON.stringify(posts));
+ render();
+ document.getElementById("titleInput").value="";document.getElementById("contentInput").value="";
+ document.getElementById("imageInput").value="";document.getElementById("preview").style.display="none";
+ closeEditor();
+ alert("글이 추가되었습니다. 인터넷에 공개하려면 「HTML 파일로 저장」을 눌러 GitHub에 index.html을 다시 올려주세요.");
+}
+function downloadHTML(){
+ const clone=document.documentElement.cloneNode(true);
+ const script=clone.querySelector("script");
+ // Embed current posts into the generated HTML so the downloaded file contains them.
+ const safe=JSON.stringify(posts).replace(/</g,"\\u003c");
+ script.textContent=script.textContent.replace(
+   /let posts=JSON\.parse\(localStorage\.getItem\("todayStoryPosts"\)\|\|"null"\)\|\|defaultPosts;/,
+   "let posts="+safe+";"
+ );
+ const out="<!DOCTYPE html>\n"+clone.outerHTML;
+ const blob=new Blob([out],{type:"text/html;charset=utf-8"});
+ const a=document.createElement("a");a.href=URL.createObjectURL(blob);a.download="index.html";a.click();URL.revokeObjectURL(a.href);
+}
+render();
+</script>
+</body>
+</html>
