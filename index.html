@@ -6,47 +6,71 @@
 <title>오늘의 이야기</title>
 <style>
 *{box-sizing:border-box}
-body{margin:0;font-family:Arial,"Noto Sans KR",sans-serif;background:#faf9f7;color:#333}
-header{background:#fff;border-bottom:1px solid #eee;position:sticky;top:0;z-index:5}
-.nav{max-width:1000px;margin:auto;padding:16px 20px;display:flex;align-items:center;justify-content:space-between;gap:20px}
-.logo{font-size:26px;font-weight:800;white-space:nowrap}.logo span{color:#c78b65}
-nav a{margin-left:14px;text-decoration:none;color:#555}
-.hero{max-width:1000px;margin:28px auto;padding:64px 24px;border-radius:24px;background:linear-gradient(135deg,#f3e5d8,#eee8df);text-align:center}
-.hero h1{font-size:40px;margin:0 0 14px}.hero p{color:#666}
-.container{max-width:1000px;margin:40px auto;padding:0 20px}
-.card{display:block;background:#fff;border-radius:20px;overflow:hidden;text-decoration:none;color:inherit;box-shadow:0 4px 18px #0000000b}
-.card img{width:100%;height:320px;object-fit:cover;display:block}
-.card-body{padding:22px}.category{font-size:13px;color:#b27652;font-weight:700}.card h2{margin:8px 0 10px;font-size:26px}.card p{color:#666;line-height:1.7}
-footer{text-align:center;color:#999;padding:42px 20px}
-@media(max-width:700px){
-.nav{align-items:flex-start}.logo{font-size:22px}nav{font-size:14px}
-.hero{margin:16px;padding:48px 20px}.hero h1{font-size:32px}
-.card img{height:230px}
+body{margin:0;font-family:-apple-system,BlinkMacSystemFont,"Noto Sans KR","Malgun Gothic",sans-serif;background:#fcfaf7;color:#2e2e2e;line-height:1.7}
+a{text-decoration:none;color:inherit}
+header{background:#fff;border-bottom:1px solid #eee}
+.nav{max-width:1000px;margin:auto;padding:22px 28px;display:flex;justify-content:space-between;gap:22px;align-items:center}
+.logo{font-size:26px;font-weight:800;white-space:nowrap}.logo span{color:#bf7d55}
+nav{display:flex;gap:25px;flex-wrap:wrap;color:#4f4f4f;font-size:17px}
+.wrap{max-width:1000px;margin:auto;padding:32px 28px 80px}
+.hero{background:linear-gradient(135deg,#f5e7d7,#efe8df);border-radius:42px;padding:72px 40px;text-align:center}
+.hero h1{font-size:54px;margin:0 0 24px}.hero p{font-size:22px;color:#666;margin:0}
+h2{font-size:42px;margin:62px 0 28px}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:26px}
+.card{background:#fff;border-radius:28px;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.05)}
+.thumb{height:270px;display:flex;align-items:center;justify-content:center;font-size:88px;background:linear-gradient(135deg,#e8efe2,#f3e0d1)}
+.thumb.travel2{background:linear-gradient(135deg,#e5edf8,#f5e7cd)}
+.card-body{padding:25px 26px 30px}.tag{font-size:14px;color:#b67850;font-weight:700}
+.card h3{font-size:25px;line-height:1.4;margin:8px 0 12px}.card p{margin:0;color:#6c6c6c}
+.more{display:inline-block;margin-top:18px;color:#b67850;font-weight:700}
+@media(max-width:720px){
+.nav{align-items:flex-start}.logo{font-size:22px}nav{font-size:14px;gap:14px}
+.wrap{padding:26px 20px 60px}.hero{padding:55px 22px;border-radius:32px}.hero h1{font-size:42px}.hero p{font-size:18px}
+h2{font-size:37px;margin-top:52px}.grid{grid-template-columns:1fr}.thumb{height:235px}
 }
 </style>
 </head>
 <body>
 <header>
-<div class="nav">
-<div class="logo">오늘의 <span>이야기</span></div>
-<nav><a href="index.html">홈</a><a href="cheongdo.html">여행</a><a href="#">맛집·먹거리</a><a href="#">생활정보</a><a href="#">AI·IT</a></nav>
-</div>
+  <div class="nav">
+    <a class="logo" href="index.html">오늘의 <span>이야기</span></a>
+    <nav>
+      <a href="index.html">홈</a><a href="#">여행</a><a href="#">맛집·먹거리</a><a href="#">생활정보</a><a href="#">AI·IT</a>
+    </nav>
+  </div>
 </header>
-<section class="hero">
-<h1>오늘의 이야기</h1>
-<p>여행하고, 먹고, 배우며 기록하는 나의 작은 공간</p>
-</section>
-<main class="container">
-<h1>최근 이야기</h1>
-<a class="card" href="cheongdo.html">
-<img src="luge.jpg" alt="청도 여행 루지 체험">
-<div class="card-body">
-<div class="category">여행</div>
-<h2>청도 여행 – 카라반 펜션, 루지, 소싸움 체험</h2>
-<p>가족과 함께 청도에서 보낸 하루. 카라반에서 쉬고, 루지를 타고, 청도의 소싸움 문화도 둘러본 여행 기록입니다.</p>
-</div>
-</a>
+<main class="wrap">
+  <section class="hero">
+    <h1>오늘의 이야기</h1>
+    <p>여행하고, 먹고, 배우며 기록하는 나의 작은 공간</p>
+  </section>
+
+  <h2>최근 이야기</h2>
+  <section class="grid">
+    <article class="card">
+      <a href="cheongdo.html">
+        <div class="thumb">🛷</div>
+        <div class="card-body">
+          <div class="tag">여행</div>
+          <h3>청도 여행 – 카라반 펜션, 루지, 소싸움 체험</h3>
+          <p>가족과 함께 보낸 청도 1박 여행의 즐거운 기록입니다.</p>
+          <span class="more">글 보러 가기 →</span>
+        </div>
+      </a>
+    </article>
+
+    <article class="card">
+      <a href="holiday-trip.html">
+        <div class="thumb travel2">🧳</div>
+        <div class="card-body">
+          <div class="tag">여행 추천</div>
+          <h3>연휴에 가족과 떠나기 좋은 1박 2일 여행지 BEST 3</h3>
+          <p>경주·전주·통영으로 가볍게 떠나는 1박 2일 여행 코스를 정리했습니다.</p>
+          <span class="more">글 보러 가기 →</span>
+        </div>
+      </a>
+    </article>
+  </section>
 </main>
-<footer>© 2026 오늘의 이야기</footer>
 </body>
 </html>
